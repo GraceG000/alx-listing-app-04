@@ -14,17 +14,17 @@ export default function BookingForm() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     try {
-      const response = await axios.post("/api/bookings", formData);
+      await axios.post("/api/bookings", formData);
       alert("Booking confirmed!");
-    } catch (error) {
+    } catch {
       setError("Failed to submit booking.");
     } finally {
       setLoading(false);
@@ -33,7 +33,7 @@ export default function BookingForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* Form fields for booking details */}
+      {/* booking input fields */}
       <button type="submit" disabled={loading}>
         {loading ? "Processing..." : "Confirm & Pay"}
       </button>
